@@ -15,6 +15,14 @@ const routes: Routes = [
     path: 'eventos',
     loadChildren: () => import('./eventos/eventos.module').then( m => m.EventosPageModule)
   },
+  {
+    path: 'agregar-evento',
+    loadChildren: () => import('./agregar-evento/agregar-evento.module').then( m => m.AgregarEventoPageModule)
+  },
+  {
+    path: 'modificar-evento',
+    loadChildren: () => import('./modificar-evento/modificar-evento.module').then( m => m.ModificarEventoPageModule)
+  },
 ];
 
 @NgModule({

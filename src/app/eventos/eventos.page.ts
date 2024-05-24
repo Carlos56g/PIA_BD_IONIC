@@ -1,6 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-
+import { ModalController } from '@ionic/angular';
+import { AgregarEventoPage } from '../agregar-evento/agregar-evento.page';
+import { ApiBdService } from '../servicios/api-bd.service';
+import { Evento } from '../models/evento';
 
 @Component({
   selector: 'app-eventos',
@@ -10,45 +13,35 @@ import { Component, OnInit } from '@angular/core';
 
 export class EventosPage implements OnInit{
 
-  Eventos:any;
-  newEvento:any;
+  Eventos:any=[]
+  EventosAgrupados:any=[];
 
-  APIURL="http://localhost:5000/"
-
-  constructor(private http:HttpClient){}
+  constructor(private modalAgregarEvento:ModalController, private apiService:ApiBdService, private http: HttpClient){}
 
   ngOnInit(){
-    this.getEventos()
-  }
-
-
-  getEventos(){
-    this.http.get(this.APIURL+"getEventos()").subscribe((res)=>{
-      console.log(res);
-      this.Eventos=res;
-      console.log(this.Eventos);
-    })
+    this.apiService.mostrarEventos().then(() => {
+      this.Eventos = this.apiService.EventosM;
+      this.agruparEventos();
+    });
 
   }
 
-  /*add_task(){
-    let body=new FormData();
-    body.append('task',this.newEvento);
-    this.http.post(this.APIURL+"add_task",body).subscribe((res)=>{
-      alert(res)
-      this.newEvento=""
-      this.get_task();
-    })
+  agruparEventos(){
+    const numElementos = 4;
+    for(let i=0; i <this.Eventos.length; i+=numElementos){
+      this.EventosAgrupados.push(this.Eventos.slice(i,i+numElementos));
+    }
   }
 
-  delete_task(id:any){
-    let body=new FormData();
-    body.append('id',id);
-    this.http.post(this.APIURL+"delete_task()",body).subscribe((res)=>{
-      alert(res)
-      this.get_task();
-    })
+  async mostrarAgregarEvento(){
+    const modal = await this.modalAgregarEvento.create({
+      component: AgregarEventoPage,
+    });
+    return await modal.present();
+  }
 
-  }*/
+  nada(){
+
+  }
 
 }

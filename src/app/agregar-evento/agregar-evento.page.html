@@ -1,0 +1,86 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Agregar Evento</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <br>
+  
+  <ion-title>Ingrese la Siguiente Informacion:</ion-title>
+
+
+  <ion-card class="input">
+    <ion-item>
+      <ion-input placeholder="Titutlo del Evento" [(ngModel)]="newEvento.titulo"></ion-input>
+      <ion-icon name="text"></ion-icon>
+    </ion-item>
+  </ion-card>
+
+
+  <ion-card class="input">
+    <ion-item>
+      <ion-textarea [autoGrow]="true" placeholder="Discripcion del Evento" [(ngModel)]="newEvento.descripcion"></ion-textarea>
+      <ion-icon name="document-text"></ion-icon>
+    </ion-item>
+  </ion-card>
+
+  <ion-datetime-button datetime="datetime"></ion-datetime-button>
+
+    <ion-modal [keepContentsMounted]="true">
+      <ng-template>
+        <ion-datetime [min]="minDate" #datetime [showDefaultTitle]="true" [showDefaultButtons]="true" id="datetime" [value]="dateFromDatetime" (ionChange)="ChangeDateInput(datetime.value)"></ion-datetime>
+      </ng-template>
+    </ion-modal>
+  <ion-row>
+    <ion-col>
+      <h2>Categoria:</h2>
+    </ion-col>
+    <ion-col size="8">
+      <ion-button (click)="mostrarCategorias()">{{CategoriaSe.categoria}}</ion-button>
+    </ion-col>
+  </ion-row>
+
+  <ion-picker *ngIf="showCategorias">
+    <ion-picker-column [value]="CategoriaSe" (ionChange)="onIonChangeC($event)">
+      <ion-picker-column-option *ngFor="let Categoria of Categorias" [value]="Categoria">{{Categoria.categoria}}</ion-picker-column-option>
+    </ion-picker-column>
+  </ion-picker>
+
+  <ion-row>
+    <ion-col>
+      <h2>Dependencia:</h2>
+    </ion-col>
+    <ion-col size="8">
+      <ion-button (click)="mostrarDependencias()">{{DependenciaSe.dependencia}}</ion-button>
+    </ion-col>
+  </ion-row>
+
+  <ion-picker *ngIf="showDependencias">
+    <ion-picker-column [value]="DependenciaSe" (ionChange)="onIonChangeD($event)">
+      <ion-picker-column-option *ngFor="let Dependencia of Dependencias" [value]="Dependencia">{{Dependencia.dependencia}}</ion-picker-column-option>
+    </ion-picker-column>
+  </ion-picker>
+
+
+  <ion-row>
+    <ion-col>
+      <h2>Recinto:</h2>
+    </ion-col>
+    <ion-col size="8">
+      <ion-button (click)="mostrarRecintos()">{{RecintoSe.recinto}}</ion-button>
+    </ion-col>
+  </ion-row>
+
+
+  <ion-picker *ngIf="showRecintos">
+    <ion-picker-column [value]="RecintoSe" (ionChange)="onIonChangeR($event)">
+      <ion-picker-column-option *ngFor="let Recinto of Recintos" [value]="Recinto">{{Recinto.recinto}}</ion-picker-column-option>
+    </ion-picker-column>
+  </ion-picker>
+
+  <ion-button (click)="AgregarEvento()">Agregar Evento</ion-button>
+</ion-content>
