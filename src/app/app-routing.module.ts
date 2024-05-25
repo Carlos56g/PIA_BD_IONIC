@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { EventoModificadoComponent } from './evento-modificado/evento-modificado.component';
+import { EventoComponent } from './evento/evento.component';
 
 const routes: Routes = [
   {
@@ -22,6 +24,18 @@ const routes: Routes = [
   {
     path: 'modificar-evento',
     loadChildren: () => import('./modificar-evento/modificar-evento.module').then( m => m.ModificarEventoPageModule)
+  },
+  {
+    path: 'modificar-evento/:id',
+    component: EventoModificadoComponent 
+   },
+   {
+    path: 'evento/:id',
+    component: EventoComponent 
+   },
+  {
+    path: 'eliminar-evento',
+    loadChildren: () => import('./eliminar-evento/eliminar-evento.module').then( m => m.EliminarEventoPageModule)
   },
 ];
 

@@ -13,7 +13,7 @@
       <ion-row *ngFor="let fila of EventosAgrupados">
         <ion-col *ngFor="let evento of fila">
           <div class="cardEvento">
-            <ion-card class="cardEvento">
+            <ion-card class="cardEvento" [routerLink]="['/evento/',evento.eventoID]">
               <ion-card-title>{{evento.eventoID}}: {{evento.titulo}}</ion-card-title>
               <ion-card-subtitle>{{evento.categoria}}</ion-card-subtitle>
               <ion-card-subtitle>DependenciaID:{{evento.dependencia}}</ion-card-subtitle>

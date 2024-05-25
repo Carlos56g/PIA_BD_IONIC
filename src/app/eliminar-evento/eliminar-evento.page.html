@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>Modificar Evento</ion-title>
+    <ion-title>Eliminar Evento</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -39,7 +39,7 @@
         </ion-col>
       </ion-row>
       </ion-grid>
-    <ion-item div *ngFor="let Evento of EventosM" class="listaEventos" [routerLink]="['/modificar-evento/', Evento.eventoID]">
+    <ion-item div *ngFor="let Evento of EventosM; index as i" class="listaEventos" (click)="mostraActionSheet(i,Evento.eventoID)">
       <ion-grid>
       <ion-row>
           <ion-col size="0.5">

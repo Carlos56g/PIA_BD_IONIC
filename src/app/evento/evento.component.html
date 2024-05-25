@@ -1,0 +1,22 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>{{EventoActual.titulo}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-text>{{EventoActual.titulo}}</ion-text>
+  <ion-text>{{EventoActual.fecha}}</ion-text>
+  <ion-text>{{EventoActual.descripcion}}</ion-text>
+  <ion-text>{{DependenciaSe.dependencia}}</ion-text>
+  <ion-text>{{CategoriaSe.categoria}}</ion-text>
+  <ion-text>{{RecintoSe.recinto}}</ion-text>
+  <ion-text>{{RecintoSe.capacidad}}</ion-text>
+  <ion-text>{{RecintoSe.direccion}}</ion-text>
+  <div *ngFor="let costo of Costos">
+    <ion-text>{{costo.descripcion}} : ${{costo.costo}}</ion-text>
+  </div>
+</ion-content>

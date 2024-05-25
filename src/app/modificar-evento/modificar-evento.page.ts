@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiBdService } from '../servicios/api-bd.service';
 
 @Component({
   selector: 'app-modificar-evento',
@@ -7,9 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ModificarEventoPage implements OnInit {
 
-  constructor() { }
+  EventosM:any[]=[];
+
+  constructor(public apiService:ApiBdService) { }
 
   ngOnInit() {
+    this.apiService.mostrarEventos().then(()=>{
+      this.EventosM=this.apiService.EventosM
+      console.log(this.EventosM)
+    })
+    
   }
+
+
+
 
 }

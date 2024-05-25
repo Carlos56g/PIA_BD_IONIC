@@ -8,9 +8,12 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { MenuLateralComponent } from './menu-lateral/menu-lateral.component';
 import { HttpClientModule } from '@angular/common/http';
+import { EventoModificadoComponent } from './evento-modificado/evento-modificado.component';
+import { FormsModule } from '@angular/forms';
+import { EventoComponent } from './evento/evento.component';
 @NgModule({
-  declarations: [AppComponent,MenuLateralComponent],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule],
+  declarations: [AppComponent,MenuLateralComponent,EventoModificadoComponent,EventoComponent],
+  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule,FormsModule],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
 })

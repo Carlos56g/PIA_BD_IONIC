@@ -1,0 +1,119 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Modificar Evento</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <form>
+    <ion-card>
+      <ion-input [value]="EventoActual.titulo" [(ngModel)]="EventoActual.titulo" name="titulo" ></ion-input>
+    </ion-card>
+    <ion-card>
+      <ion-textarea [value]="EventoActual.descripcion"  autoGrow="true" [(ngModel)]="EventoActual.descripcion" name="description"></ion-textarea>
+    </ion-card>
+
+    <ion-datetime-button datetime="datetime"></ion-datetime-button>
+    <ion-modal [keepContentsMounted]="true">
+      <ng-template>
+        <ion-datetime #datetime [showDefaultTitle]="true" [showDefaultButtons]="true" id="datetime" [value]="dateFromDatetime" (ionChange)="ChangeDateInput(datetime.value)"></ion-datetime>
+      </ng-template>
+    </ion-modal>
+  <ion-row>
+    <ion-col>
+      <h2>Categoria:</h2>
+    </ion-col>
+    <ion-col size="8">
+      <ion-button (click)="mostrarCategorias()">{{CategoriaSe.categoria}}</ion-button>
+    </ion-col>
+  </ion-row>
+
+  <ion-picker *ngIf="showCategorias">
+    <ion-picker-column [value]="CategoriaSe" (ionChange)="onIonChangeC($event)">
+      <ion-picker-column-option *ngFor="let Categoria of Categorias" [value]="Categoria">{{Categoria.categoria}}</ion-picker-column-option>
+    </ion-picker-column>
+  </ion-picker>
+
+  <ion-row>
+    <ion-col>
+      <h2>Dependencia:</h2>
+    </ion-col>
+    <ion-col size="8">
+      <ion-button (click)="mostrarDependencias()">{{DependenciaSe.dependencia}}</ion-button>
+    </ion-col>
+  </ion-row>
+
+  <ion-picker *ngIf="showDependencias">
+    <ion-picker-column [value]="DependenciaSe" (ionChange)="onIonChangeD($event)">
+      <ion-picker-column-option *ngFor="let Dependencia of Dependencias" [value]="Dependencia">{{Dependencia.dependencia}}</ion-picker-column-option>
+    </ion-picker-column>
+  </ion-picker>
+
+
+  <ion-row>
+    <ion-col>
+      <h2>Recinto:</h2>
+    </ion-col>
+    <ion-col size="8">
+      <ion-button (click)="mostrarRecintos()">{{RecintoSe.recinto}}</ion-button>
+    </ion-col>
+  </ion-row>
+
+
+  <ion-picker *ngIf="showRecintos">
+    <ion-picker-column [value]="RecintoSe" (ionChange)="onIonChangeR($event)">
+      <ion-picker-column-option *ngFor="let Recinto of Recintos" [value]="Recinto">{{Recinto.recinto}}</ion-picker-column-option>
+    </ion-picker-column>
+  </ion-picker>
+
+  <ion-button (click)="AgregarEvento()">Agregar Evento</ion-button>
+
+  </form>
+
+  <ion-list>
+    <ion-item>
+      <ion-grid>
+        <ion-row>
+          <ion-col>Costo</ion-col>
+          <ion-col>Descripcion</ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+    <ion-item *ngFor="let costo of Costos; index as i">
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-input type="number" [(ngModel)]="costo.costo"></ion-input>
+          </ion-col>
+          <ion-col>
+            <ion-input [(ngModel)]="costo.descripcion"></ion-input>
+          </ion-col>
+          <ion-buttons>
+            <ion-button (click)="EditarCosto(costo)" >Editar Precio</ion-button>
+            <ion-button (click)="EliminarCosto(costo.costoID)">Elimniar Precio</ion-button>
+          </ion-buttons>
+        </ion-row>
+      </ion-grid>
+      
+    </ion-item>
+  </ion-list>
+  
+  <form (ngSubmit)="agregarCosto()">
+    <ion-input type="number" name="costo" placeholder="Costo" [(ngModel)]="newCosto.costo" required></ion-input>
+    <ion-input type="text" name="descripcion" placeholder="Descripcion" [(ngModel)]="newCosto.descripcion"
+      required></ion-input>
+    <ion-button [disabled]="!newCosto.descripcion" type="submit">Agregar Costo</ion-button>
+  </form>
+  
+    <ion-title>{{EventoActual.eventoID}}</ion-title>   
+    <ion-title>{{CategoriaSe.categoria}}</ion-title>
+    <ion-title>{{RecintoSe.recinto}}</ion-title>
+    <ion-title>{{DependenciaSe.dependencia}}</ion-title>
+    <ion-title>{{EventoActual.fecha}}</ion-title>
+  
+  
+</ion-content>
