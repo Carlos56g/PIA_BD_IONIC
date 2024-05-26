@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiBdService } from '../servicios/api-bd.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-menu-lateral',
@@ -7,8 +9,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MenuLateralComponent  implements OnInit {
 
-  constructor() { }
+  constructor(public apiService : ApiBdService,public Aroute:ActivatedRoute) { }
 
-  ngOnInit() {}
+  //ROLID:number=3;//ROL PREDETERMINADO
+  ngOnInit() {
+  }
+
 
 }

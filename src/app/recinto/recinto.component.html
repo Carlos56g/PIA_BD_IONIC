@@ -1,0 +1,42 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-col><ion-title>{{RecintoActual.recinto}}</ion-title></ion-col>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+
+  <ion-list>
+    <ion-item>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-title>Direccion</ion-title>
+          </ion-col>
+          <ion-col>
+            <ion-title>Capacidad</ion-title>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+    <ion-item>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-title>{{RecintoActual.direccion}}</ion-title>
+          </ion-col>
+          <ion-col>
+            <ion-title>{{RecintoActual.capacidad}}</ion-title>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+  </ion-list>
+
+  <ion-grid>
+    <ion-row>
+      <ion-button class="butaca" *ngFor="let butaca of Butacas">{{butaca.butacaID}}</ion-button>
+    </ion-row>
+  </ion-grid>

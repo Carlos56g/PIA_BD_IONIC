@@ -20,7 +20,7 @@
         </ion-row>
       </ion-grid>
     </ion-item>
-    <ion-item *ngFor="let recinto of Recintos;">
+    <ion-item *ngFor="let recinto of Recintos;"[routerLink]="['/recintos', recinto.recintoID]">
       <ion-grid>
         <ion-row>
           <ion-col size="1">{{recinto.recintoID}}</ion-col>

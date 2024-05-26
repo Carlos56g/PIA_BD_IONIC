@@ -1,0 +1,47 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-col><ion-title>Login</ion-title></ion-col>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <form [formGroup]="logForm" novalidate>
+
+    <div class="inputgroup">
+      <p>Complete la informacion:</p>
+      <ion-card class="input">
+        <ion-item>
+          <ion-input formControlName="email" placeholder="Correo"></ion-input>
+          <ion-icon name="mail"></ion-icon>
+        </ion-item>
+        <div *ngIf="this.logForm.controls?.['email'].touched && this.logForm.controls?.['email'].invalid">
+          <ion-text>Email Invalido</ion-text>
+        </div>
+      </ion-card>
+      <ion-card class="input">
+        <ion-item>
+          <ion-input type="password" formControlName="password" placeholder="Contraseña"><ion-input-password-toggle slot="end"></ion-input-password-toggle></ion-input>
+          <ion-icon name="lock-closed-outline"></ion-icon>
+        </ion-item>
+        <div
+          *ngIf="this.logForm.controls?.['password'].touched && this.logForm.controls?.['password'].invalid">
+          <ion-text>Contraseña Invalida</ion-text>
+        </div>
+      </ion-card>
+      <ion-card style="--background: transparent; box-shadow: none;">
+        <br>
+        <div>
+          <a [routerLink]="['/register']">Crea una cuenta aqui!</a>
+        </div>
+      </ion-card>
+    </div>
+  </form>
+
+  <ion-button [disabled]="this.logForm.status=='INVALID'" (click)="loginUsuario()">Iniciar Sesion</ion-button>
+
+
+</ion-content>

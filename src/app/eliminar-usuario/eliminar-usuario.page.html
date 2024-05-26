@@ -1,0 +1,42 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-col><ion-title>Eliminar Usuarios</ion-title></ion-col>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-grid>
+        <ion-row>
+          <ion-col size="1">ID</ion-col>
+          <ion-col>Nombre</ion-col>
+          <ion-col>Apellido Paterno</ion-col>
+          <ion-col>Apellido Materno</ion-col>
+          <ion-col>Correo</ion-col>
+          <ion-col>Rol</ion-col>
+          <ion-col>Dependencia</ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+    <ion-item *ngFor="let usuario of UsuariosM;index as i " (click)="mostraActionSheet(i,usuario.usuarioID)">
+      <ion-grid>
+        <ion-row>
+          <ion-col size="1">{{usuario.usuarioID}}</ion-col>
+          <ion-col>{{usuario.nombre}}</ion-col>
+          <ion-col>{{usuario.apellidoPaterno}}</ion-col>
+          <ion-col>{{usuario.apellidoMaterno}}</ion-col>
+          <ion-col>{{usuario.correo}}</ion-col>
+          <ion-col>{{usuario.rol}}</ion-col>
+          <ion-col>{{usuario.dependencia}}</ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+  </ion-list>
+
+
+</ion-content>
+

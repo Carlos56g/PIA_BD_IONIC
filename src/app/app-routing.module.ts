@@ -4,6 +4,7 @@ import { EventoModificadoComponent } from './evento-modificado/evento-modificado
 import { EventoComponent } from './evento/evento.component';
 import { DependenciaModificadaComponent } from './dependencia-modificada/dependencia-modificada.component';
 import { RecintoModificadoComponent } from './recinto-modificado/recinto-modificado.component';
+import { RecintoComponent } from './recinto/recinto.component';
 
 const routes: Routes = [
   {
@@ -79,6 +80,31 @@ const routes: Routes = [
     path: 'agregar-recinto',
     loadChildren: () => import('./agregar-recinto/agregar-recinto.module').then( m => m.AgregarRecintoPageModule)
   },
+  {
+    path:'recintos/:id',
+    component:RecintoComponent
+  },
+  {
+    path: 'login',
+    loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
+  },
+  {
+    path: 'register',
+    loadChildren: () => import('./register/register.module').then( m => m.RegisterPageModule)
+  },
+  {
+    path: 'usuarios',
+    loadChildren: () => import('./usuarios/usuarios.module').then( m => m.UsuariosPageModule)
+  },
+  {
+    path: 'agregar-usuario',
+    loadChildren: () => import('./agregar-usuario/agregar-usuario.module').then( m => m.AgregarUsuarioPageModule)
+  },
+  {
+    path: 'eliminar-usuario',
+    loadChildren: () => import('./eliminar-usuario/eliminar-usuario.module').then( m => m.EliminarUsuarioPageModule)
+  }
+  
 
 ];
 

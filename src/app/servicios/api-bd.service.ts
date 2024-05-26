@@ -7,6 +7,9 @@ import { Dependencia } from 'src/app/models/dependencia';
 import { firstValueFrom } from 'rxjs';
 import { Platform } from '@ionic/angular';
 import { Costo } from '../models/costo';
+import { Butaca } from '../models/butaca';
+import { Usuario } from '../models/usuario';
+import { Rol } from '../models/rol';
 
 @Injectable({
   providedIn: 'root'
@@ -40,12 +43,25 @@ export class ApiBdService {
     capacidad:0
   }
 
-  
+  Usuario:Usuario={
+    usuarioID: 0,
+    nombre: '',
+    apellidoMaterno: '',
+    apellidoPaterno: '',
+    constraseña: '',
+    correo: '',
+    dependenciaID: 0,
+    rolID: 3//Rol Predeterminado
+  }
+
+  Roles: Rol[] = []
   Categorias: Categoria[] = []
   Dependencias: Dependencia[] = []
   Costos: Costo[] = []
+  Butacas: Butaca[] = []
 
   EventosM: any
+  UsuariosM:any
 
   constructor(private http: HttpClient, public platform:Platform ) { }
 
@@ -75,6 +91,7 @@ export class ApiBdService {
 
 
   getCategorias(): Promise<void> {
+    console.log(this.Usuario.rolID)
     return firstValueFrom(this.http.get<Categoria[]>(`${this.APIURL}categorias`))
       .then((res) => {
         this.Categorias = res;
@@ -93,6 +110,17 @@ export class ApiBdService {
       })
       .catch((error) => {
         console.error('Error fetching Eventos:', error);
+        throw error;
+      });
+  }
+
+  getRoles(): Promise<void> {
+    return firstValueFrom(this.http.get<Rol[]>(`${this.APIURL}roles`))
+      .then((res) => {
+        this.Roles = res;
+      })
+      .catch((error) => {
+        console.error('Error fetching Roles:', error);
         throw error;
       });
   }
@@ -132,6 +160,18 @@ export class ApiBdService {
       });
   }
 
+  
+  getButacasbyRecintoID(ID: number): Promise<void> {
+    return firstValueFrom(this.http.get<Butaca[]>(`${this.APIURL}butacas/${ID}`))
+      .then((res) => {
+        this.Butacas = res;
+      })
+      .catch((error) => {
+        console.error('Error fetching Recintos:', error);
+        throw error;
+      });
+  }
+
   getRecinto(ID: number): Promise<void> {
     return firstValueFrom(this.http.get<Recinto>(`${this.APIURL}recintos/${ID}`))
       .then((res) => {
@@ -143,6 +183,19 @@ export class ApiBdService {
       });
   }
 
+  getUsuario(Correo: string): Promise<void> {
+    return firstValueFrom(this.http.get<Usuario>(`${this.APIURL}usuario/${Correo}`))
+      .then((res) => {
+        this.Usuario = res;
+      })
+      .catch((error) => {
+        console.error('Error fetching Usuarios:', error);
+        throw error;
+      });
+  }
+
+  
+
 
   mostrarEventos(): Promise<void> {
     return firstValueFrom(this.http.get<any>(`${this.APIURL}eventos/mostrarEventos()`))
@@ -151,6 +204,17 @@ export class ApiBdService {
       })
       .catch((error) => {
         console.error('Error fetching EventosM:', error);
+        throw error;
+      });
+  }
+
+  mostrarUsuarios(): Promise<void> {
+    return firstValueFrom(this.http.get<any>(`${this.APIURL}usuario/mostrarUsuarios()`))
+      .then((res) => {
+        this.UsuariosM = res;
+      })
+      .catch((error) => {
+        console.error('Error fetching UusariosM:', error);
         throw error;
       });
   }
@@ -181,6 +245,12 @@ export class ApiBdService {
     })
   }
 
+  async postUsuario(newUsuario:Usuario){
+    this.http.post(this.APIURL + "usuario", newUsuario).subscribe((res) => {
+      alert(res)
+    })
+  }
+
   deleteEvento(ID: number) {
     this.http.delete(this.APIURL + "eventos/" + ID).subscribe((res) => {
       alert(res)
@@ -204,6 +274,14 @@ export class ApiBdService {
   async deleteRecinto(ID: number) {
     this.http.delete(this.APIURL + "recintos/" + ID).subscribe((res) => {
       alert(res)
+    })
+  }
+
+  deleteUsuario(ID: number) {
+    this.http.delete(this.APIURL + "usuario/" + ID).subscribe((res) => {
+      alert(res)
+      this.getEventos();
+      this.mostrarEventos();
     })
   }
 

@@ -13,8 +13,9 @@ import { FormsModule } from '@angular/forms';
 import { EventoComponent } from './evento/evento.component';
 import { DependenciaModificadaComponent } from './dependencia-modificada/dependencia-modificada.component';
 import { RecintoModificadoComponent } from './recinto-modificado/recinto-modificado.component';
+import { RecintoComponent } from './recinto/recinto.component';
 @NgModule({
-  declarations: [AppComponent,MenuLateralComponent,EventoModificadoComponent,EventoComponent,DependenciaModificadaComponent,RecintoModificadoComponent],
+  declarations: [AppComponent,MenuLateralComponent,EventoModificadoComponent,EventoComponent,DependenciaModificadaComponent,RecintoModificadoComponent,RecintoComponent],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule,FormsModule],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],

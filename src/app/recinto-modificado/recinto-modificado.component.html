@@ -9,7 +9,7 @@
 
 <ion-content>
 
-  <ion-title>{{RecintoActual.recintoID}}-{{RecintoActual.recinto}}</ion-title>
+  <ion-title>{{RecintoActual.recintoID}} - {{RecintoActual.recinto}}</ion-title>
   <form (ngSubmit)="modificarDependencia()">
     <ion-input type="text" name="Recinto" placeholder="Recinto" [(ngModel)]="RecintoActual.recinto"
       required></ion-input>
@@ -17,7 +17,7 @@
       required></ion-input>
       <ion-input type="number" name="Capacidad" placeholder="Capacidad" [(ngModel)]="RecintoActual.capacidad"
       required></ion-input>
-    <ion-button [disabled]="formValido()" type="submit">Modificar Dependencia</ion-button>
+    <ion-button [disabled]="formValido()" type="submit">Modificar Recinto</ion-button>
   </form>
   
 </ion-content>
