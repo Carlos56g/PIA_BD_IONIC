@@ -12,76 +12,75 @@ import { Costo } from '../models/costo';
   templateUrl: './evento-modificado.component.html',
   styleUrls: ['./evento-modificado.component.scss'],
 })
-export class EventoModificadoComponent  implements OnInit {
+export class EventoModificadoComponent implements OnInit {
 
   Categorias: Categoria[] = [];
-  CategoriaSe: Categoria={
-    categoriaID:0,
-    categoria:''
+  CategoriaSe: Categoria = {
+    categoriaID: 0,
+    categoria: ''
   };
   showCategorias: boolean = false
 
   Dependencias: Dependencia[] = [];
   DependenciaSe: Dependencia = {
-    dependenciaID:0,
-    dependencia:''
+    dependenciaID: 0,
+    dependencia: ''
   };
   showDependencias: boolean = false
 
   Recintos: Recinto[] = [];
   RecintoSe: Recinto = {
-    recintoID:0,
-    recinto:'',
-    direccion:'',
-    capacidad:0
+    recintoID: 0,
+    recinto: '',
+    direccion: '',
+    capacidad: 0
   };
   showRecintos: boolean = false
   idEvento: number = this.Aruta.snapshot.params['id'];
 
-  EventoActual:Evento={
-    eventoID:0,
-    titulo:'',
+  EventoActual: Evento = {
+    eventoID: 0,
+    titulo: '',
     descripcion: '',
-    fecha:  new Date(),
+    fecha: new Date(),
     recintoID: 0,
     dependenciaID: 0,
     categoriaID: 0
   }
-  
-  dateFromDatetime:string=(new Date()).toISOString();
+
+  dateFromDatetime: string = (new Date()).toISOString();
 
   Costos: Costo[] = [];
-  newCosto:Costo={
-    costoID:0,
-    costo:0,
-    eventoID:0,
-    descripcion:''
+  newCosto: Costo = {
+    costoID: 0,
+    costo: 0,
+    eventoID: 0,
+    descripcion: ''
   }
-  
-  constructor(public Aruta : ActivatedRoute, public apiService:ApiBdService, public ruta: Router) { }
-  
+
+  constructor(public Aruta: ActivatedRoute, public apiService: ApiBdService, public ruta: Router) { }
+
   ngOnInit() {
     console.log(this.idEvento)
-    this.apiService.getEvento(this.idEvento).then(()=>{
-      this.EventoActual=this.apiService.Evento;
-      //this.EventoActual.fecha=new Date(this.EventoActual.fecha)
-      //this.dateFromDatetime=this.EventoActual.fecha.toISOString().split('T')[0]+'T'+this.EventoActual.fecha.toLocaleTimeString ('it-IT');
-      this.apiService.getCostobyEventoID(this.EventoActual.eventoID).then(()=>{
-        this.Costos=this.apiService.Costos
+    this.apiService.getEvento(this.idEvento).then(() => {
+      this.EventoActual = this.apiService.Evento;
+      this.apiService.getCostobyEventoID(this.EventoActual.eventoID).then(() => {
+        this.Costos = this.apiService.Costos
+        this.apiService.getCategorias().then(() => {
+          this.Categorias = this.apiService.Categorias;
+          this.CategoriaSe = this.Categorias[this.EventoActual.categoriaID - 1];
+          this.apiService.getDependencias().then(() => {
+            this.Dependencias = this.apiService.Dependencias;
+            this.DependenciaSe = this.Dependencias[this.EventoActual.dependenciaID - 1];
+            this.apiService.getRecintos().then(() => {
+              this.Recintos = this.apiService.Recintos;
+              this.RecintoSe = this.Recintos[this.EventoActual.recintoID - 1];
+            });
+          });
+        });
       });
     });
-    this.apiService.getCategorias().then(() => {
-      this.Categorias = this.apiService.Categorias;
-      this.CategoriaSe=this.Categorias[this.EventoActual.categoriaID-1];
-    });
-    this.apiService.getDependencias().then(() => {
-      this.Dependencias = this.apiService.Dependencias;
-      this.DependenciaSe=this.Dependencias[this.EventoActual.dependenciaID-1];
-    });
-    this.apiService.getRecintos().then(() => {
-      this.Recintos = this.apiService.Recintos;
-      this.RecintoSe=this.Recintos[this.EventoActual.recintoID-1];
-    });
+
   }
 
   onIonChangeC(event: CustomEvent) {
@@ -122,33 +121,33 @@ export class EventoModificadoComponent  implements OnInit {
     this.dateFromDatetime = value
   }
 
-  AgregarEvento() {
-    this.EventoActual.categoriaID=this.CategoriaSe.categoriaID;
-    this.EventoActual.recintoID=this.RecintoSe.recintoID;
-    this.EventoActual.dependenciaID=this.DependenciaSe.dependenciaID;
-    this.EventoActual.fecha=new Date(this.dateFromDatetime)
+  EditarEvento() {
+    this.EventoActual.categoriaID = this.CategoriaSe.categoriaID;
+    this.EventoActual.recintoID = this.RecintoSe.recintoID;
+    this.EventoActual.dependenciaID = this.DependenciaSe.dependenciaID;
+    this.EventoActual.fecha = new Date(this.dateFromDatetime)
     this.apiService.putEvento(this.EventoActual)
     this.ruta.navigate(['eventos'])
   }
 
-  EditarCosto(newCosto:Costo){
+  EditarCosto(newCosto: Costo) {
     this.apiService.putCosto(newCosto)
   }
 
-  EliminarCosto(costoID:number){
-    this.apiService.deleteCosto(costoID).then(()=>{
+  EliminarCosto(costoID: number) {
+    this.apiService.deleteCosto(costoID).then(() => {
       this.apiService.restartApp()
     })
 
-    
+
   }
 
-    agregarCosto(){
-      this.newCosto.eventoID=this.EventoActual.eventoID
-      this.apiService.postCosto(this.newCosto)
-      this.apiService.restartApp();
-    }
+  agregarCosto() {
+    this.newCosto.eventoID = this.EventoActual.eventoID
+    this.apiService.postCosto(this.newCosto)
+    this.apiService.restartApp();
+  }
 
-  
+
 
 }

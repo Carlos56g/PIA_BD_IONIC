@@ -28,6 +28,19 @@ export class ApiBdService {
 
   Eventos: Evento[] = []
   Recintos: Recinto[] = []
+  Dependencia:Dependencia={
+    dependencia:'',
+    dependenciaID:0
+  }
+
+  Recinto:Recinto={
+    recinto:'',
+    recintoID:0,
+    direccion:'',
+    capacidad:0
+  }
+
+  
   Categorias: Categoria[] = []
   Dependencias: Dependencia[] = []
   Costos: Costo[] = []
@@ -95,6 +108,18 @@ export class ApiBdService {
       });
   }
 
+  getDependencia(ID: number): Promise<void> {
+    return firstValueFrom(this.http.get<Dependencia>(`${this.APIURL}dependencias/${ID}`))
+      .then((res) => {
+        this.Dependencia = res;
+      })
+      .catch((error) => {
+        console.error('Error fetching Dependencia:', error);
+        throw error;
+      });
+  }
+
+
   getCostobyEventoID(ID: number): Promise<void> {
     return firstValueFrom(this.http.get<Costo[]>(`${this.APIURL}costos/${ID}`))
       .then((res) => {
@@ -103,6 +128,17 @@ export class ApiBdService {
       })
       .catch((error) => {
         console.error('Error fetching Costos:', error);
+        throw error;
+      });
+  }
+
+  getRecinto(ID: number): Promise<void> {
+    return firstValueFrom(this.http.get<Recinto>(`${this.APIURL}recintos/${ID}`))
+      .then((res) => {
+        this.Recinto = res;
+      })
+      .catch((error) => {
+        console.error('Error fetching Recintos:', error);
         throw error;
       });
   }
@@ -120,20 +156,30 @@ export class ApiBdService {
   }
 
 
-  postEvento(newEvento: Evento) {
+  async postEvento(newEvento: Evento) {
     this.http.post(this.APIURL + "eventos", newEvento).subscribe((res) => {
       alert(res)
       this.mostrarEventos();
     })
   }
 
-  postCosto(newCosto: Costo) {
+  async postCosto(newCosto: Costo) {
     this.http.post(this.APIURL + "costos", newCosto).subscribe((res) => {
       alert(res)
     })
   }
 
+  postDependecia(newDependencia: Dependencia) {
+    this.http.post(this.APIURL + "dependencias", newDependencia).subscribe((res) => {
+      alert(res)
+    })
+  }
 
+  postRecinto(newRecinto: Recinto) {
+    this.http.post(this.APIURL + "recintos", newRecinto).subscribe((res) => {
+      alert(res)
+    })
+  }
 
   deleteEvento(ID: number) {
     this.http.delete(this.APIURL + "eventos/" + ID).subscribe((res) => {
@@ -149,6 +195,18 @@ export class ApiBdService {
     })
   }
 
+  async deleteDependencia(ID: number) {
+    this.http.delete(this.APIURL + "dependencias/" + ID).subscribe((res) => {
+      alert(res)
+    })
+  }
+
+  async deleteRecinto(ID: number) {
+    this.http.delete(this.APIURL + "recintos/" + ID).subscribe((res) => {
+      alert(res)
+    })
+  }
+
   putEvento(newEvento:Evento){
     this.http.put(this.APIURL+"eventos",newEvento).subscribe((res)=>{
       alert(res)
@@ -157,8 +215,24 @@ export class ApiBdService {
     })
   }
 
+  putRecinto(newRecinto:Recinto){
+    this.http.put(this.APIURL+"recintos",newRecinto).subscribe((res)=>{
+      alert(res)
+      this.getEventos();
+      this.mostrarEventos();
+    })
+  }
+
   putCosto(newCosto: Costo) {
     this.http.put(this.APIURL + "costos", newCosto).subscribe((res) => {
+      alert(res)
+      this.getEventos();
+      this.mostrarEventos();
+    })
+  }
+
+  putDependencia(newCosto: Dependencia) {
+    this.http.put(this.APIURL + "dependencias", newCosto).subscribe((res) => {
       alert(res)
       this.getEventos();
       this.mostrarEventos();

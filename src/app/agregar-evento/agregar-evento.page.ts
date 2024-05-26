@@ -10,6 +10,7 @@ import { Dependencia } from '../models/dependencia';
 import { Recinto } from '../models/recinto';
 import { Costo } from '../models/costo';
 import { FormBuilder} from '@angular/forms';
+import { delay } from 'rxjs';
 
 @Component({
   selector: 'app-agregar-evento',
@@ -144,15 +145,19 @@ export class AgregarEventoPage implements OnInit {
     this.datetimeA=true
   }
 
-  AgregarEvento() {
+  async AgregarEvento() {
     this.newEvento.categoriaID = this.CategoriaSe.categoriaID;
     this.newEvento.recintoID = this.RecintoSe.recintoID;
     this.newEvento.dependenciaID = this.DependenciaSe.dependenciaID;
     this.newEvento.fecha = new Date(this.dateFromDatetime)
+    this.newEvento.eventoID = this.IDmax
     this.apiService.postEvento(this.newEvento)
-    this.agregarCostoBD();
-    this.route.navigate(['eventos'])
-
+    setTimeout(() => {
+      this.agregarCostoBD();
+      this.route.navigate(['eventos']);
+    }, 500);
+  
+    
   }
 
   agregarCosto() {
@@ -162,14 +167,14 @@ export class AgregarEventoPage implements OnInit {
       costoID: 0,
       costo: 0,
       descripcion: '',
-      eventoID: this.IDmax
+      eventoID:0
     };
   }
 
-  agregarCostoBD() {
+  async agregarCostoBD() {
     const n = this.Costos.length
     for (let i = 0; i < n; i++) {
-      this.apiService.postCosto(this.Costos[i])
+      await this.apiService.postCosto(this.Costos[i])
     }
   }
 

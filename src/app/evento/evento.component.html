@@ -3,25 +3,88 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>{{EventoActual.titulo}}</ion-title>
+        <ion-col><ion-title>{{EventoActual.titulo}}</ion-title></ion-col>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-card>
-    <ion-text>{{EventoActual.titulo}}</ion-text>
-  </ion-card>
-  <ion-card>
-    <ion-text>{{EventoActual.fecha}}</ion-text>
-  </ion-card>
+
+
+
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-title>{{DependenciaSe.dependencia}}</ion-title>
+      </ion-col>
+      <ion-col>
+        <ion-title>{{CategoriaSe.categoria}}</ion-title>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
   
-  <ion-text>{{EventoActual.descripcion}}</ion-text>
-  <ion-text>{{DependenciaSe.dependencia}}</ion-text>
-  <ion-text>{{CategoriaSe.categoria}}</ion-text>
-  <ion-text>{{RecintoSe.recinto}}</ion-text>
-  <ion-text>{{RecintoSe.capacidad}}</ion-text>
-  <ion-text>{{RecintoSe.direccion}}</ion-text>
-  <div *ngFor="let costo of Costos">
-    <ion-text>{{costo.descripcion}} : ${{costo.costo}}</ion-text>
+
+
+
+
+  <ion-grid>
+    <ion-row style="background-color: black;">
+      <ion-col>
+        <ion-text>Recinto</ion-text>
+      </ion-col>
+      <ion-col>
+        <ion-text>Direccion</ion-text>
+      </ion-col>
+      <ion-col size="1">
+        <ion-text>Capacidad</ion-text>
+      </ion-col>
+    </ion-row>
+    <ion-list>
+      <ion-row>
+        <ion-col>
+          <ion-text>{{RecintoSe.recinto}}</ion-text>
+        </ion-col>
+        <ion-col>
+          <ion-text>{{RecintoSe.direccion}}</ion-text>
+        </ion-col>
+        <ion-col size="1">
+          <ion-text>{{RecintoSe.capacidad}}</ion-text>
+        </ion-col>
+      </ion-row>
+    </ion-list>
+    
+  </ion-grid>
+  
+  <br>
+
+  <ion-col><ion-text>{{EventoActual.fecha}}</ion-text></ion-col>
+
+  <br><br>
+  <ion-card>
+    <ion-card-header>{{EventoActual.descripcion}}</ion-card-header>
+  </ion-card>
+
+
+  <div *ngIf="Costos.length!=0">
+    <ion-grid >
+      <ion-row style="background-color: black;">
+        <ion-col>Costo</ion-col>
+      </ion-row>
+    </ion-grid>
+  
+    <ion-list>
+      <ion-item *ngFor="let costo of Costos;">
+        <ion-grid>
+          <ion-row>
+            <ion-col>{{costo.costo}}</ion-col>
+            <ion-col>{{costo.descripcion}}</ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+    </ion-list>
   </div>
+  
+
+
+
 </ion-content>

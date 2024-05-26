@@ -1,0 +1,24 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+        <ion-col><ion-title>Agregar Recinto</ion-title></ion-col>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <br>
+  <ion-title>Agregue El Nuevo Recinto:</ion-title>
+
+  <form (ngSubmit)="agregarRecinto()">
+    <ion-input type="text" name="Recinto" placeholder="Recinto" [(ngModel)]="newRecinto.recinto"
+      required></ion-input>
+    <ion-input type="text" name="Direccion" placeholder="Direccion" [(ngModel)]="newRecinto.direccion"
+      required></ion-input>
+    <ion-input type="number" name="Capacidad" placeholder="Capacidad" [(ngModel)]="newRecinto.capacidad"
+      required></ion-input>
+    <ion-button [disabled]="formValido()" type="submit">Agregar Recinto</ion-button>
+  </form>
+
+</ion-content>

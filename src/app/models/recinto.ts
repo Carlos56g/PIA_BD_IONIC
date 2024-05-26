@@ -4,3 +4,4 @@ export interface Recinto {
     direccion: string,
     capacidad: number,
 }
+

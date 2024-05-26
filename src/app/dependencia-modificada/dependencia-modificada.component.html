@@ -1,0 +1,16 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Modificar Dependencia</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-title>{{DependenciaActual.dependenciaID}}-{{DependenciaActual.dependencia}}</ion-title>
+  <form (ngSubmit)="modificarDependencia()">
+    <ion-input type="text" name="Dependencia" placeholder="Dependencia" [(ngModel)]="DependenciaActual.dependencia"
+      required></ion-input>
+    <ion-button [disabled]="!DependenciaActual.dependencia" type="submit">Modificar Dependencia</ion-button>
+  </form>
+</ion-content>

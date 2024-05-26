@@ -1,0 +1,21 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+        <ion-col><ion-title>Agregar Dependencia</ion-title></ion-col>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <br>
+  <ion-title>Agregue La Nueva Dependencia:</ion-title>
+
+  <form (ngSubmit)="agregarDependencia()">
+    <ion-input type="text" name="Dependencia" placeholder="Dependencia" [(ngModel)]="newDependencia.dependencia"
+      required></ion-input>
+    <ion-button [disabled]="!newDependencia.dependencia" type="submit">Agregar Dependencia</ion-button>
+  </form>
+  
+  
+</ion-content>

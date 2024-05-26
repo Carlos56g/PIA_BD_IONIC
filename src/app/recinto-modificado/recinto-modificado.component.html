@@ -1,0 +1,23 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+        <ion-col><ion-title>Recintos</ion-title></ion-col>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-title>{{RecintoActual.recintoID}}-{{RecintoActual.recinto}}</ion-title>
+  <form (ngSubmit)="modificarDependencia()">
+    <ion-input type="text" name="Recinto" placeholder="Recinto" [(ngModel)]="RecintoActual.recinto"
+      required></ion-input>
+      <ion-input type="text" name="Direccion" placeholder="Direccion" [(ngModel)]="RecintoActual.direccion"
+      required></ion-input>
+      <ion-input type="number" name="Capacidad" placeholder="Capacidad" [(ngModel)]="RecintoActual.capacidad"
+      required></ion-input>
+    <ion-button [disabled]="formValido()" type="submit">Modificar Dependencia</ion-button>
+  </form>
+  
+</ion-content>
