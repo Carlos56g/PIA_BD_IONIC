@@ -4,6 +4,7 @@ import { AlertController, LoadingController } from '@ionic/angular';
 import { ApiBdService } from '../servicios/api-bd.service';
 import { Router } from '@angular/router';
 import { Usuario } from '../models/usuario';
+import { SesionStorageService } from '../sesion-storage.service';
 
 @Component({
   selector: 'app-login',
@@ -22,11 +23,11 @@ export class LoginPage implements OnInit {
     dependenciaID: 0,
     rolID: 3//Rol Predeterminado
   }
-
+  storedValue: string | null = '';
   Correo:string;
   Constraseña:string;
   
-  constructor(public formBuilder: FormBuilder,public loadingCtrl: LoadingController, public apiService: ApiBdService, public route:Router,private alertController: AlertController) { }
+  constructor(public formBuilder: FormBuilder,public loadingCtrl: LoadingController, public apiService: ApiBdService, public route:Router,private alertController: AlertController,public sessionStorageService: SesionStorageService) { }
 
   ngOnInit() {
     this.logForm = this.formBuilder.group({
@@ -53,6 +54,8 @@ export class LoginPage implements OnInit {
         if(this.Constraseña==this.apiService.Usuario.constraseña){
           this.Usuario=this.apiService.Usuario;
           loading.dismiss();
+          const rolIDString=this.Usuario.rolID.toString()
+          this.saveValue(rolIDString)
           this.route.navigate(['eventos']);
         }else{
           loading.dismiss();
@@ -86,6 +89,15 @@ export class LoginPage implements OnInit {
     });
 
     await alert.present();
+  }
+
+  saveValue(value: string) {
+    this.sessionStorageService.setItem('myKey', value);
+    this.loadStoredValue();
+  }
+  loadStoredValue() {
+    this.storedValue = this.sessionStorageService.getItem('myKey');
+    console.log(this.storedValue)
   }
 
 

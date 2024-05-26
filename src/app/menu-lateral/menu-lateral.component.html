@@ -20,7 +20,7 @@
         <ion-button [routerLink]="['eventos']"><ion-icon name="reorder-four"></ion-icon>Eventos</ion-button>
       </ion-item>
     </ion-list>
-    <ion-list *ngIf="this.apiService.Usuario.rolID==1">
+    <ion-list *ngIf="this.storedValue=='1'">
       <ion-item>
         <ion-button [routerLink]="['agregar-evento']"><ion-icon slot="start" name="add-circle"></ion-icon>Agregar Evento</ion-button>
       </ion-item>
